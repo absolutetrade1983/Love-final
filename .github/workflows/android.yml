@@ -1,19 +1,18 @@
-
-name: Build Android APK
+name: Build Virtual Camera APK
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          repository: H-tech-AFAQ-CEO/Open-Source-Android-Virtual-Camera
+          ref: main
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -22,7 +21,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v6
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build APK
         run: |
@@ -32,6 +31,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Android-APK
+          name: VirtualCamera-APK
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
